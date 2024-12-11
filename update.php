@@ -3,15 +3,14 @@
     $id = $_GET['id-student'];
     $group = $_GET['group'];
     $codeSp = $_GET['code-spetiality'];
-    $nameSp = $_GET['name-spetiality'];
-    
-    $update = "";
+    $FIO = $_GET['FIO-student'];
+    $zach = $_GET['zachet-student'];
+    $fioKurator = $_GET['FIO-kurator'];
+    $update = "UPDATE `student` 
+    JOIN `groups` ON `groups`.`id-group` = `student`.`id-group` 
+    JOIN `kurator` ON `kurator`.`id-group` = `groups`.`id-group` 
+    JOIN `spetiality` ON `spetiality`.`id-spetiality` = `kurator`.`id-spetiality` 
+    SET `student`.`FIO-student` = '$FIO', `student`.`zachet-student` = '$zach', `groups`.`name-group` = '$group', `spetiality`.`code-spetiality` = '$codeSp', `kurator`.`FIO-kurator` = '$fioKurator' WHERE `student`.`id-student` = '$id'";
     $query = $link -> prepare($update);
-    $query -> execute([$id]);
-    print_r($query);
-    var_dump($query);
-    // $query = "UPDATE `items` SET `title`='$title',`description`='$description',`cost`='$cost' WHERE `items`.`id` = ?";
-    // $query = "UPDATE `student` SET `id-group`='[value-2]',`FIO-student`='[value-3]',`login-student`='[value-4]',`password-student`='[value-5]',`zachet-student`='[value-6]' WHERE 1";
-    // $stmt = $conn ->prepare($query);
-    // $stmt -> execute([$id]);
+    $query -> execute();
 ?>

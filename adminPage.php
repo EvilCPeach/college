@@ -1,8 +1,8 @@
 <?php
     require_once('config.php');
     session_start();
-    $select = "SELECT `spetiality`.`code-spetiality`,`spetiality`.`name-spetiality`,`groups`.`name-group`, `student`.`FIO-student`, `student`.`zachet-student`, `kurator`.`FIO-kurator`, `kurator`.`email-kurator`,`student`.`id-student`, 
-    TRUNCATE(SUM(`mark-mark` / 3), 2) AS 'TOTAL' FROM `groups`
+    $select = "SELECT `spetiality`.`code-spetiality`,`spetiality`.`name-spetiality`,`groups`.`name-group`, `student`.`FIO-student`, `student`.`zachet-student`, `kurator`.`FIO-kurator`, `kurator`.`email-kurator`,`student`.`id-student`, COUNT(`mark`.`id-mark`) AS 'COUNT', 
+    TRUNCATE(AVG(`mark-mark`), 2) AS 'TOTAL' FROM `groups`
     JOIN `student` ON `student`.`id-group` = `groups`.`id-group` 
     JOIN `kurator` ON `kurator`.`id-group` = `groups`.`id-group`
     JOIN `mark` ON `student`.`id-student` = `mark`.`id-student`
@@ -66,7 +66,7 @@
             <td><?php echo $row['FIO-kurator'] ?></td>
             <td><?php echo $row['email-kurator'] ?></td>
             <td><a href="delete.php?id=<?= $row['id-student'] ?>">Удалить</a></td>
-            <td><a href="updatepage.php?id=<?= $row['id-student'] ?>">Изменить</a></td>
+            <td><a href="updatePage.php?id=<?= $row['id-student'] ?>">Изменить</a></td>
         </tr>
     <?php } ?>
     </table>

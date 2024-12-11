@@ -2,7 +2,7 @@
     require_once('config.php');
     session_start();
     $login = $_SESSION['user'];
-    $selectStudent = "SELECT `groups`.`name-group`,`student`.*, TRUNCATE(SUM(`mark`.`mark-mark` / 3), 2) AS 'TOTAL'
+    $selectStudent = "SELECT `groups`.`name-group`,`student`.*, COUNT(`mark`.`id-mark`) AS 'COUNT', TRUNCATE(AVG(`mark`.`mark-mark`), 2) AS 'TOTAL'
     FROM `student`
     JOIN `mark` ON `mark`.`id-student` = `student`.`id-student`
     JOIN `groups` ON `groups`.`id-group` = `student`.`id-group`
@@ -27,6 +27,7 @@
         <tr>
             <td>Группа</td>
             <td>ФИО</td>
+            <td>Количество оценок</td>
             <td>Средний балл</td>
             <td>Рейтинг</td>
             <td>Логин</td>
@@ -37,6 +38,7 @@
             <tr>
                 <td><?php echo $row['name-group'] ?></td>
                 <td><?php echo $row['FIO-student'] ?></td>
+                <td><?php echo $row['COUNT'] ?></td>
                 <td><?php echo $row['TOTAL'] ?></td>
                 <td>
                 <?php

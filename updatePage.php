@@ -3,7 +3,7 @@
     error_reporting(E_ALL);
     $id = $_GET['id'];
     $select = "SELECT `spetiality`.`code-spetiality`,`spetiality`.`name-spetiality`,`groups`.`name-group`, `student`.`FIO-student`, `student`.`zachet-student`, `kurator`.`FIO-kurator`, `kurator`.`email-kurator`,`student`.`id-student`, 
-    TRUNCATE(SUM(`mark-mark` / 3), 2) AS 'TOTAL' FROM `groups`
+    TRUNCATE(AVG(`mark-mark`), 2) AS 'TOTAL' FROM `groups`
     JOIN `student` ON `student`.`id-group` = `groups`.`id-group` 
     JOIN `kurator` ON `kurator`.`id-group` = `groups`.`id-group`
     JOIN `mark` ON `student`.`id-student` = `mark`.`id-student`
@@ -26,12 +26,12 @@
 <body>
     <form action="update.php" method="GET">
         <input type="text" name="code-spetiality" placeholder="Код специальности" value="<?= $row['code-spetiality'] ?>">
-        <input type="text" name="code-spetiality" placeholder="Название специальности" value="<?= $row['name-spetiality'] ?>">
+        <input type="hidden" name="name-spetiality" placeholder="Название специальности" value="<?= $row['name-spetiality'] ?>">
         <input type="text" name="group" placeholder="Группа" value="<?= $row['name-group'] ?>">
         <input type="text" name="FIO-student" placeholder="ФИО студента" value="<?= $row['FIO-student'] ?>">
         <input type="text" name="zachet-student" placeholder="Номер зачётной книжки" value="<?= $row['zachet-student'] ?>">
         <input type="text" name="FIO-kurator" placeholder="ФИО куратора" value="<?= $row['FIO-kurator'] ?>">
-        <input type="text" name="email-kurator" placeholder="Почта куратора" value="<?= $row['email-kurator'] ?>">
+        <input type="hidden" name="email-kurator" placeholder="Почта куратора" value="<?= $row['email-kurator'] ?>">
         <input type="hidden" name="id-student" value="<?= $row['id-student'] ?>">
         <input type="hidden" name="TOTAL" value="<?= $row['TOTAL'] ?>">
         <br>

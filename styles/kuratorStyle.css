@@ -1,0 +1,9 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+table,td{
+    border: 1px solid black;
+    margin: 400px auto 0 auto;
+}
